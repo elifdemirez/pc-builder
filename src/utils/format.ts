@@ -1,0 +1,1 @@
+export const tryFmt = (n:number) => n.toLocaleString('tr-TR', { style:'currency', currency:'TRY', maximumFractionDigits:0 })
