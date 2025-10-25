@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import type { Catalog, Selection, Anakart, CPU, RAM, GPU, PSU, Kasa, Depolama, Cooler } from '../types'
-import { tryFmt } from '../utils/format'
-import { cpuOnMobo, ramOnMobo, gpuOnMobo, moboInCase, gpuInCase, psuEnough, psuInCase, storageOnMobo, coolerOK } from '../utils/compat'
+import { cpuOnMobo, ramOnMobo, gpuOnMobo, moboInCase, gpuInCase, psuEnough, storageOnMobo, coolerOK } from '../utils/compat'
 
 
 const LS_KEY = 'pcbuilder.selection.v1'
@@ -49,7 +48,7 @@ const clear = () => setSelection({})
 const total = useMemo(()=> Object.values(selection).reduce((s, it:any)=> s + (it?.fiyat_try ?? 0), 0), [selection])
 
 
-const steps = [
+const steps: { key: keyof Selection; title: string }[] = [
 { key:'anakart', title:'Anakart' },
 { key:'islemci', title:'İşlemci' },
 { key:'ram', title:'RAM' },
@@ -61,7 +60,7 @@ const steps = [
 { key:'klavye', title:'Klavye' },
 { key:'fare', title:'Fare' },
 { key:'islemci_sogutucu', title:'CPU Soğutucu' },
-] as const
+]
 
 
 const compatible: Ctx['compatible'] = {

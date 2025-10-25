@@ -13,7 +13,7 @@ if (r.modul_sayisi > m.bellek.yuva_sayisi) return false
 const max = Math.max(...m.bellek.hiz_mhz)
 return r.hiz_mhz <= max
 }
-export function gpuOnMobo(m:Anakart, g:GPU){
+export function gpuOnMobo(m:Anakart, _g:GPU){
 if ((m.genisleme?.pcie_x16 ?? 0) < 1) return false
 return true
 }
@@ -34,7 +34,7 @@ return k.psu_destek.includes(p.form_factor)
 }
 export function coolerOK(cool:Cooler, cpu?:CPU, k?:Kasa){
 if (!cpu) return false
-const soketOK = cool.destenlenen_soketler?.includes ? (cool.destenlenen_soketler as any).includes(cpu.soket) : cool.desteklenen_soketler.includes(cpu.soket)
+const soketOK = cool.desteklenen_soketler.includes(cpu.soket)
 const tdpOK = cpu.tdp_w <= cool.max_tdp_w
 const hOK = k?.cpu_sogutucu_yukseklik_max_mm ? (cool.yukseklik_mm ?? 0) <= k.cpu_sogutucu_yukseklik_max_mm : true
 return soketOK && tdpOK && hOK
